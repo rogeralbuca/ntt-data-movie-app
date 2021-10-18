@@ -1,0 +1,32 @@
+<div class="container-fluid mt-4">
+  <div class="jumbotron">
+    <div class="media">
+      <img class="align-self-start mr-3" src="{{ movie.Poster }}" />
+      <div class="media-body">
+        <h2>{{ movie.Title }}</h2>
+        <p>{{ movie.Plot }}</p>
+        <p><b>Rating: </b>{{ movie.imdbRating }}</p>
+        <p><b>Runtime: </b>{{ movie.Runtime }}</p>
+        <p><b>Released: </b>{{ movie.Released }}</p>
+        <p><b>Genre: </b>{{ movie.Genre }}</p>
+
+        <p><b>Director: </b>{{ movie.Director }}</p>
+        <p><b>Actors: </b>{{ movie.Actors }}</p>
+        <p><b>Writer: </b>{{ movie.Writer }}</p>
+      </div>
+    </div>
+    <hr class="my-4" />
+    <p class="lead">
+      <a class="btn btn-primary mr-1" [routerLink]="['/']" role="button"
+        >Back</a
+      >
+      <a
+        class="btn"
+        [ngClass]="{ 'btn-danger': !isFavorite, 'btn-secondary': isFavorite }"
+        role="button"
+        (click)="setFavorite(movie.imdbID)"
+        >Favorite <fa-icon [icon]="faHeart"></fa-icon
+      ></a>
+    </p>
+  </div>
+</div>

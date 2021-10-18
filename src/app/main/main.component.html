@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div id="branding" class="mr-3">
+    <img src="/assets/images/logo.png" class="logo" />
+    <div>
+      <h1 class="site-title">Movie app</h1>
+      <small class="site-description">NTT Data</small>
+    </div>
+  </div>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto"></ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+        [formControl]="searchControl"
+      />
+    </form>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <div class="card-columns">
+    <div class="card" *ngFor="let movie of movies | async">
+      <img
+        class="card-img-top"
+        src="{{
+          movie.Poster === 'N/A'
+            ? '/assets/images/default_poster.jpg'
+            : movie.Poster
+        }}"
+        (click)="handleClick(movie.imdbID)"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.Title }}</h5>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted"
+          ><b>Year:</b> {{ movie.Year }} <b>Type:</b> {{ movie.Type }}
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="filters">
+    <select [(ngModel)]="selectedType" (ngModelChange)="selectChange($event)">
+      <option value="movie">Movie</option>
+      <option value="series">Series</option>
+    </select>
+    <select [(ngModel)]="selectedYear" (ngModelChange)="selectChange($event)">
+      <option value="2021">2021</option>
+      <option value="2020">2020</option>
+      <option value="2019">2019</option>
+    </select>
+  </div>
+  <div class="card-columns">
+    <div class="card" *ngFor="let review of reviews">
+      <img
+        class="card-img-top"
+        src="{{
+          review.Poster === 'N/A'
+            ? '/assets/images/default_poster.jpg'
+            : review.Poster
+        }}"
+        (click)="handleClick(review.imdbID)"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ review.Title }}</h5>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted"
+          ><b>Year:</b> {{ review.Year }} <b>Type:</b> {{ review.Type }}
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<pagination
+  class="pagination"
+  [boundaryLinks]="showBoundaryLinks"
+  [directionLinks]="showDirectionLinks"
+  [totalItems]="totalResults"
+  [itemsPerPage]="10"
+  (pageChanged)="pageChanged($event)"
+></pagination>
+
+<footer class="footer">
+  <p class="text-center">
+    Powered by Roger Albuquerque - Movie App - Version 1.0
+  </p>
+</footer>
